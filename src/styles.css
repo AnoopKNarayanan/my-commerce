@@ -1,0 +1,53 @@
+/* You can add global styles to this file, and also import other style files */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.navy-blue {
+    background-color: rgb(2, 48, 71);
+}
+
+.blue {
+    background-color: rgb(33, 158, 188);
+}
+
+.light-blue {
+    background-color: rgb(142, 202, 230);
+}
+
+.yellow {
+    background-color: rgb(255, 183, 3);
+}
+
+.orange {
+    background-color: rgb(251, 133, 0);
+}
+
+.fa-star {
+    color: rgb(33, 158, 188);
+}
+
+.spinner-border {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 5;
+    color: rgb(142, 202, 230);
+    height: 5rem;
+    width: 5rem;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    backdrop-filter: blur(2px);
+}
+
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+}

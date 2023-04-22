@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+	<div class="col-10 mt-4" *ngIf="productDetails$ | async as productDetails">
+		<div class="row mt-4">
+			<div class="col-md-3 col-lg-5">
+				<img class="card-img-top" [src]="productDetails.image" alt="">
+			</div>
+			<div class="col-md-9 col-lg-7 mt-4">
+				<div class="card-body">
+					<div class="table">
+						<div class="row">
+							<div class="col fw-bolder fs-2">{{productDetails.title}}</div>
+						</div>
+                        <div class="row">
+                            <div class="col"><div class="rating-card mt-3">{{productDetails.rating.rate}} <span class="fa-sharp fa-solid fa-star"></span> <span class="border-start border-secondary ms-2 ps-3">{{productDetails.rating.count}} Ratings</span></div></div>
+                        </div>
+						<hr class="hr hr-blurry">
+						<div class="row">
+							<div class="col fs-5"><span class="fw-bolder">CAD {{productDetails.price}}</span><span class="text-secondary">MRP <del>{{productDetails.price * 2}}</del></span> <span class="fw-bold off-color">(50% OFF)</span></div>
+						</div>
+						<div class="row">
+							<div class="col"><button class="btn btn-lg text-uppercase cart-btn mt-5"><span class="fa-solid fa-cart-arrow-down me-3" style="color: #FFFFFF"></span>Add to cart</button></div>
+						</div>
+						<hr class="hr hr-blurry my-5">
+						<div class="row">
+							<div class="col fw-bold fs-6 text-uppercase">Product details</div>
+						</div>
+						<div class="row">
+							<div class="col mt-3">{{productDetails.description}}</div>
+						</div>
+						<div class="row">
+							<div class="col fw-bold fs-8 mt-3">Category</div>
+						</div>
+						<div class="row">
+							<div class="col mt-2 text-capitalize">{{productDetails.category}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mt-4 d-flex flex-row-reverse">
+			<button class="btn btn-primary back-btn" (click)="goBack()">Back To Store</button>
+		</div>
+	</div>
+
+</div>

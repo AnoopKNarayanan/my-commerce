@@ -1,0 +1,87 @@
+<header class="sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-dark navy-blue">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><img src="assets/images/logo.png" alt="logo" class="logo"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" aria-current="page" href="#" routerLink="/home">Home</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Products
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" [ngClass]="{'disabled': !nav.visible}" href="#" routerLink="/products">All Products</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li *ngFor="let category of categories">
+                <a class="dropdown-item text-capitalize" [ngClass]="{'disabled': !nav.visible}" href="#" routerLink="/products" (click)="onCategorySelect(category.category)">{{category.category}}</a>
+              </li>
+              <!-- <li><a class="dropdown-item" href="#" routerLinkActive="active" #allProducts="routerLinkActive" routerLink="/products">All Products</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><h6 class="dropdown-header men-header">Clothing</h6></li>
+              <li><a class="dropdown-item" href="#" routerLink="/products">Men's</a></li>
+              <li><a class="dropdown-item" href="#" routerLink="/products">Women's</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><h6 class="dropdown-header women-header">Accessories</h6></li>
+              <li><a class="dropdown-item" href="#" routerLink="/products">Jewelery</a></li>
+              <li><a class="dropdown-item" href="#" routerLink="/products">Electronics</a></li> -->
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" href="#" routerLink="/about">About</a>
+          </li>
+        </ul>
+        <!-- <form #searchForm="ngForm" class="d-flex" (ngSubmit)="onSearch(searchForm)">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" ngModel name="keyword" [disabled]="nav.visible == true">
+          <button class="btn srch-btn" type="submit" [disabled]="nav.visible">Search</button>
+          <span class="fa-solid fa-cart-shopping" style="color: #FFFFFF"></span>
+        </form> -->
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- <header class="p-3 bg-dark text-white">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="#" class="nav-link px-2 text-secondary" routerLink="/home">Home</a></li>
+          <li class="dropdown">
+            <a class="nav-link px-2 text-white" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Products</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="#" routerLink="/products">All Products</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><h6 class="dropdown-header men-header">Men's</h6></li>
+              <li><a class="dropdown-item" href="#">Outerwear</a></li>
+              <li><a class="dropdown-item" href="#">Innerwear</a></li>
+              <li><a class="dropdown-item" href="#">Accessories</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><h6 class="dropdown-header women-header">Women's</h6></li>
+              <li><a class="dropdown-item" href="#">Outerwear</a></li>
+              <li><a class="dropdown-item" href="#">Innerwear</a></li>
+              <li><a class="dropdown-item" href="#">Accessories</a></li>
+            </ul>
+          </li>
+          <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+        </ul>
+
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+        </form>
+
+        <div class="text-end">
+          <button type="button" class="btn btn-outline-light me-2">Login</button>
+          <button type="button" class="btn btn-warning">Sign-up</button>
+        </div>
+      </div>
+      
+    </div>
+  </header> -->

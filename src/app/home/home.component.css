@@ -1,0 +1,9 @@
+.carousel-caption p{
+  font-size: 1.2rem;
+}
+
+.carousel-caption {
+  background-color: black;
+  opacity: 70%;
+  border-radius: 5px;
+}

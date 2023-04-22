@@ -1,0 +1,48 @@
+.rating-card {
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: fit-content;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.off-color {
+    color: rgb(255, 183, 3);
+}
+
+.cart-btn {
+    width: 25rem;
+    color: #fff;
+    background-color: rgb(251, 133, 0);
+    border-color: rgb(251, 133, 0);
+}
+
+.cart-btn:hover {
+    color: #fff;
+    background-color: #FF8E0D;
+    border-color: #FF8E0D;
+}
+
+.cart-btn:active {
+    color: #fff;
+    background-color: #FF8E0D;
+    border-color: #E87C00;
+}
+
+.back-btn {
+    color: #fff;
+    background-color: rgb(33, 158, 188);
+    border-color: rgb(33, 158, 188);
+}
+
+.back-btn:hover {
+    color: #fff;
+    background-color: #24AACC;
+    border-color: #24AACC;
+}
+
+.back-btn:active {
+    color: #fff;
+    background-color: #24AACC;
+    border-color: rgb(33, 158, 188);
+}
