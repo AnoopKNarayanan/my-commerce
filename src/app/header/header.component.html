@@ -1,16 +1,635 @@
-<header class="sticky-top">
-  <nav class="navbar navbar-expand-lg navbar-dark navy-blue">
+<header>
+  <div class="top-bar d-flex align-items-center">
+    <div class="row flex-nowrap w-100">
+      <div class="col p-0">We now ship to 200 locations worldwide <a href="#" class="details-link">Details</a></div>
+      <div class="col text-end p-0">
+        <nav class="top-bar-nav">
+          <a class="ms-3" href="#">Order Tracking</a>
+          <span class="pe-3 border-rt"></span>
+          <a class="ms-3" href="#">Stores</a>
+          <span class="pe-3 border-rt"></span>
+          <a class="ms-3" href="#">Wedding Registry</a>
+          <span class="pe-3 border-rt"></span>
+          <a class="ms-3" href="#">Shipping To</a>
+          <img class="ms-2" src="https://assets.macys.com/web20/assets/img/international/flags/CA.gif" alt="">
+      </nav>
+      </div>
+    </div>        
+  </div>
+  <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#"><img src="assets/images/logo.png" alt="logo" class="logo"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <div class="nav-top-row d-flex">
+        <a class="navbar-brand" href="#">macys</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <form #searchForm="ngForm" class="d-flex ms-auto align-items-center">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search" ngModel name="keyword">
+          <span class="ms-4">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgiIGhlaWdodD0iMjgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjYgN3YyMGgyMC44SDMuNlY3em0yMC42IDE5LjhIMy44VjcuMmgyMC40djE5LjZ6TTE3LjYgMi42QTUgNSAwIDAxMTkgNi4xSDlhNSA1IDAgMDE4LjYtMy41em0tNi45LS40YTUuMiA1LjIgMCAwMC0xLjkgNGgxMC40SDguOGE1LjIgNS4yIDAgMDEyLTR6bS0xLS40YTYuMiA2LjIgMCAwMC0xLjkgNC4zSDMuNmExIDEgMCAwMC0xIDFWMjdhMSAxIDAgMDAxIDFoMjAuOGExIDEgMCAwMDEtMVY3YTEgMSAwIDAwLTEtMWgtNC4yQTYuMiA2LjIgMCAwMDkuNiAxLjl6bTEuNC0xYTYgNiAwIDAxOSA1LjRoNC4zYS45LjkgMCAwMS45LjlWMjcgN2EuOS45IDAgMDAtMS0uOGgtNC4yQTYgNiAwIDAwMTEgMXoiIGZpbGw9IiMwMDAiLz48cGF0aCBkPSJNMTIuMyAxNS4ySDcuNmwzLjggMi45LTEuNSA0LjYgMy44LTIuOSAzLjggMy0xLjQtNC43IDMuNy0zaC00LjZsLTEuNS00LjYtMS40IDQuN3oiIGZpbGw9IiNFMDFBMkIiLz48L3N2Zz4" alt="">
+          </span>
+       </form>
+      </div>
+      
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" aria-current="page" href="#" routerLink="/home">Home</a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-between">
+          <li class="nav-item" *ngFor="let category of categories">
+            <a class="nav-link" href="#" (mouseenter)="show(category.title)" (mouseleave)="hide(category.title)" [ngClass]="{'special': category.title == 'Sale'}">{{category.title}}</a>
           </li>
-          <li class="nav-item dropdown">
+          <div [id]="category.title" class="flyout-container" (mouseleave)="hide(category.title)" *ngFor="let category of categories">
+            <div class="d-flex flex-wrap row-cols-4 mb-5">
+               <div class="col" *ngFor="let section of category.sections">
+                  <div class="d-flex flex-column" *ngFor="let group of section.groups" [ngClass]="{'mt-5': group.title == 'Special'}">
+                     <h5 class="mb-2 mt-5" *ngIf="group.title != 'Special'">{{group.title}}</h5>
+                     <a class="pointer" *ngFor="let subSection of group.subSections" [ngClass]="{'special': group.title == 'Special'}" (click)="onCategorySelect(subSection)">{{subSection}}</a>                     
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- <div id="mens-clothing" class="flyout-container" (mouseleave)="hide('mens-clothing')">
+            <div class="d-flex flex-wrap row-cols-4 mb-5">
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Men's Clothing</h5>
+                     <a href="/shop/mens-clothing/all-mens-clothing?id=197651&amp;cm_sp=intl_hdr-_-men-_-197651_all-men%27s-clothing_COL1">All Men's Clothing</a> 
+                     <a href="/shop/mens-clothing/new-arrivals?id=166742&amp;cm_sp=intl_hdr-_-men-_-166742_new-arrivals_COL1">New Arrivals</a> 
+                     <a href="/shop/mens-clothing/mens-blazers-sports-coats?id=16499&amp;cm_sp=intl_hdr-_-men-_-16499_blazers-%26-sport-coats_COL1">Blazers &amp; Sport Coats</a> 
+                     <a href="/shop/mens-clothing/mens-jackets-coats?id=3763&amp;cm_sp=intl_hdr-_-men-_-3763_coats-%26-jackets_COL1">Coats &amp; Jackets</a> 
+                     <a href="/shop/mens-clothing/mens-dress-shirts?id=20635&amp;cm_sp=intl_hdr-_-men-_-20635_dress-shirts_COL1">Dress Shirts</a> 
+                     <a href="/shop/mens-clothing/hoodies-for-men?id=25995&amp;cm_sp=intl_hdr-_-men-_-25995_hoodies-%26-sweatshirts_COL1">Hoodies &amp; Sweatshirts</a> 
+                     <a href="/shop/mens-clothing/mens-jeans?id=11221&amp;cm_sp=intl_hdr-_-men-_-11221_jeans_COL1">Jeans</a> 
+                     <a href="/shop/mens-clothing/mens-pajamas?id=16295&amp;cm_sp=intl_hdr-_-men-_-16295_pajamas-%26-robes_COL1">Pajamas &amp; Robes</a> 
+                     <a href="/shop/mens-clothing/mens-pants?id=89&amp;cm_sp=intl_hdr-_-men-_-89_pants_COL1">Pants</a> 
+                     <a href="/shop/mens-clothing/mens-shirts?id=20626&amp;cm_sp=intl_hdr-_-men-_-20626_shirts_COL1">Shirts</a> 
+                     <a href="/shop/mens-clothing/mens-shorts?id=3310&amp;cm_sp=intl_hdr-_-men-_-3310_shorts_COL1">Shorts</a> 
+                     <a href="/shop/mens-clothing/mens-suits?id=17788&amp;cm_sp=intl_hdr-_-men-_-17788_suits-%26-tuxedos_COL1">Suits &amp; Tuxedos</a> 
+                     <a href="/shop/mens-clothing/mens-sweaters?id=4286&amp;cm_sp=intl_hdr-_-men-_-4286_sweaters_COL1">Sweaters</a> 
+                     <a href="/shop/mens-clothing/mens-swimwear?id=3291&amp;cm_sp=intl_hdr-_-men-_-3291_swimwear_COL1">Swimwear</a> 
+                     <a href="/shop/mens-clothing/mens-underwear?id=57&amp;cm_sp=intl_hdr-_-men-_-57_underwear-%26-socks_COL1">Underwear &amp; Socks</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Men's Active &amp; Outdoor</h5>
+                     <a href="/shop/mens-clothing/mens-activewear?id=3296&amp;cm_sp=intl_hdr-_-men-_-3296_all-activewear_COL2">All Activewear</a> 
+                     <a href="/shop/mens-clothing/outdoor-camping?id=159271&amp;cm_sp=intl_hdr-_-men-_-159271_outdoor-apparel-%26-shoes_COL2">Outdoor Apparel &amp; Shoes</a> 
+                     <a href="/s/sports-fan-shop/?cm_sp=intl_hdr-_-men-_-sports-fan-shop_COL2">Sports Fan Shop</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Men's Big &amp; Tall</h5>
+                     <a href="/shop/mens-clothing/big-and-tall?id=45758&amp;cm_sp=intl_hdr-_-men-_-45758_all-big-%26-tall_COL2">All Big &amp; Tall</a> 
+                     <a href="/shop/mens-clothing/big-and-tall/Product_department/Jeans%7CPants%7CShorts?id=45758&amp;cm_sp=intl_hdr-_-men-_-bottoms_COL2">Bottoms</a> 
+                     <a href="/shop/mens-clothing/big-and-tall/Product_department/Dress%20Shirts%7CPolo%20Shirts%7CShirts%7CT-shirts?id=45758&amp;cm_sp=intl_hdr-_-men-_-tops_COL2">Tops</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Men's Brands</h5>
+                     <a href="/shop/all-brands/mens?id=63581&amp;cm_sp=intl_hdr-_-men-_-63581_all-men%27s-brands_COL2">All Men's Brands</a> 
+                     <a href="/shop/mens-clothing/mens-adidas?id=60285&amp;cm_sp=intl_hdr-_-men-_-60285_adidas_COL2">adidas</a> 
+                     <a href="/shop/mens-clothing/mens-calvin-klein?id=28169&amp;cm_sp=intl_hdr-_-men-_-28169_calvin-klein_COL2">Calvin Klein</a> 
+                     <a href="/shop/mens-clothing/levis-mens-jeans-apparel?id=43141&amp;cm_sp=intl_hdr-_-men-_-43141_levi%27s_COL2">Levi's</a> 
+                     <a href="/shop/mens-clothing/mens-polo-ralph-lauren?id=3304&amp;cm_sp=intl_hdr-_-men-_-3304_polo-ralph-lauren_COL2">Polo Ralph Lauren</a> 
+                     <a href="/shop/mens-clothing/mens-tommy-hilfiger?id=2519&amp;cm_sp=intl_hdr-_-men-_-2519_tommy-hilfiger_COL2">Tommy Hilfiger</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Men's Shoes</h5>
+                     <a href="/shop/mens-clothing/shop-all-mens-shoes?id=55822&amp;cm_sp=intl_hdr-_-men-_-55822_all-men%27s-shoes_COL3">All Men's Shoes</a> 
+                     <a href="/shop/mens-clothing/mens-sneakers?id=55642&amp;cm_sp=intl_hdr-_-men-_-55642_athletic-shoes-%26-sneakers_COL3">Athletic Shoes &amp; Sneakers</a> 
+                     <a href="/shop/mens-clothing/mens-boat-shoes?id=55636&amp;cm_sp=intl_hdr-_-men-_-55636_boat-shoes_COL3">Boat Shoes</a> 
+                     <a href="/shop/mens-clothing/mens-casual-shoes?id=59851&amp;cm_sp=intl_hdr-_-men-_-59851_casual-shoes_COL3">Casual Shoes</a> 
+                     <a href="/shop/mens-clothing/dress-shoes?id=70405&amp;cm_sp=intl_hdr-_-men-_-70405_dress-shoes_COL3">Dress Shoes</a> 
+                     <a href="/shop/mens-clothing/drivers?id=79687&amp;cm_sp=intl_hdr-_-men-_-79687_loafers-%26-drivers_COL3">Loafers &amp; Drivers</a> 
+                     <a href="/shop/mens-clothing/mens-sandals?id=55640&amp;cm_sp=intl_hdr-_-men-_-55640_sandals-%26-flip-flops_COL3">Sandals &amp; Flip-Flops</a> 
+                     <a href="/shop/mens-clothing/mens-summer-shoes?id=78256&amp;cm_sp=intl_hdr-_-men-_-78256_summer-shoes_COL3">Summer Shoes</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Bags &amp; Accessories</h5>
+                     <a href="/shop/mens-clothing/mens-accessories?id=47665&amp;cm_sp=intl_hdr-_-men-_-47665_all-accessories_COL3">All Accessories</a> 
+                     <a href="/shop/mens-clothing/mens-backpacks-bags?id=45016&amp;cm_sp=intl_hdr-_-men-_-45016_bags-%26-backpacks_COL3">Bags &amp; Backpacks</a> 
+                     <a href="/shop/mens-clothing/mens-belts-suspenders?id=47673&amp;cm_sp=intl_hdr-_-men-_-47673_belts-%26-suspenders_COL3">Belts &amp; Suspenders</a> 
+                     <a href="/shop/jewelry-watches/mens-jewelry-accessories?id=43877&amp;cm_sp=intl_hdr-_-men-_-43877_jewelry-%26-cufflinks_COL3">Jewelry &amp; Cufflinks</a> 
+                     <a href="/shop/mens-clothing/mens-ties-pocket-squares?id=53239&amp;cm_sp=intl_hdr-_-men-_-53239_ties-%26-pocket-squares_COL3">Ties &amp; Pocket Squares</a> 
+                     <a href="/shop/mens-clothing/mens-wallets?id=47697&amp;cm_sp=intl_hdr-_-men-_-47697_wallets_COL3">Wallets</a> 
+                     <a href="/shop/jewelry-watches/mens-watches?id=57386&amp;cm_sp=intl_hdr-_-men-_-57386_watches_COL3">Watches</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Cologne &amp; Grooming</h5>
+                     <a href="/shop/makeup-and-perfume/cologne-for-men?id=30088&amp;cm_sp=intl_hdr-_-men-_-30088_all-cologne_COL4">All Cologne</a> 
+                     <a href="/shop/mens-clothing/gift-sets?id=238721&amp;cm_sp=intl_hdr-_-men-_-238721_cologne-%26-grooming-gift-sets_COL4">Cologne &amp; Grooming Gift Sets</a> 
+                     <a href="/shop/makeup-and-perfume/all-grooming?id=216194&amp;cm_sp=intl_hdr-_-men-_-216194_all-grooming-%26-skin-care_COL4">All Grooming &amp; Skin Care</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Discover</h5>
+                     <a href="/shop/mens-clothing/business-casual?id=75897&amp;cm_sp=intl_hdr-_-men-_-75897_business-casual_COL4">Business Casual</a> 
+                     <a href="/shop/contemporary-nocrawl/mens?id=315757&amp;cm_sp=intl_hdr-_-men-_-contemporary-trends_COL4">Contemporary Trends</a> 
+                     <a href="/s/fathers-day-gift-guide/?cm_sp=c2_1111&amp;cm_sp=intl_hdr-_-men-_-father%27s-day-gift-finder_COL4">Father's Day Gift Finder</a> 
+                     <a href="/shop/mens-clothing/mens-finish-line-athletic-shoes?id=63266&amp;cm_sp=intl_hdr-_-men-_-63266_finish-line-men%27s-shoes_COL4">Finish Line Men's Shoes</a> 
+                     <a href="/shop/nba-2023-conference-finals?id=187555&amp;cm_sp=intl_hdr-_-men-_-187555_nba-2023-conference-finals_COL4">NBA 2023 Conference Finals</a> 
+                     <a href="/shop/mens-clothing/mens-sunglasses?id=58262&amp;cm_sp=intl_hdr-_-men-_-58262_sunglasses-by-sunglass-hut_COL4">Sunglasses by Sunglass Hut</a> 
+                     <a href="/shop/mens-clothing/vacation?id=219991&amp;cm_sp=intl_hdr-_-men-_-219991_vacation_COL4">Vacation</a> 
+                     <a href="/shop/mens-clothing/wedding?id=209658&amp;cm_sp=intl_hdr-_-men-_-209658_wedding_COL4">Wedding</a> 
+                  </div>
+                  <div class="d-flex flex-column mt-5">
+                     <a class="special" href="/shop/mens-clothing/flash-sale-25-50-off-graduation-gifts?id=296459&amp;cm_sp=intl_hdr-_-men-_-296459_flash-sale%3A-25-50%25-off-graduation-gifts_COL4">Flash Sale: 25-50% Off Graduation Gifts</a> 
+                     <a class="special" href="/shop/mens-clothing/30-50-off-mens-basics?id=300758&amp;cm_sp=intl_hdr-_-men-_-300758_30-50%25-off-men%27s-basics_COL4">30-50% off Men's Basics</a> 
+                     <a class="special" href="/shop/mens-clothing/sale-clearance?id=9559&amp;cm_sp=intl_hdr-_-men-_-9559_sale-%26-clearance_COL4">Sale &amp; Clearance</a> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div id="baby" class="flyout-container" (mouseleave)="hide('baby')">
+            <div class="d-flex flex-wrap row-cols-4 mb-5">
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Baby</h5>
+                     <a href="/shop/kids-clothes/baby-products?id=187458&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-187458_all-baby_COL1">All Baby</a> 
+                     <a href="/shop/kids-clothes/baby-girls-clothes?id=48692&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-48692_baby-girl-%280-24-months%29_COL1">Baby Girl (0-24 months)</a> 
+                     <a href="/shop/kids-clothes/baby-boy-clothes?id=48693&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-48693_baby-boy-%280-24-months%29_COL1">Baby Boy (0-24 months)</a> 
+                     <a href="/shop/kids-clothes/unisex-baby-clothes?id=190751&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-190751_unisex-%280-24-months%29_COL1">Unisex (0-24 months)</a> 
+                     <a href="/shop/kids-clothes/baby-shoes?id=73512&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-73512_baby-%26-toddler-shoes_COL1">Baby &amp; Toddler Shoes</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Girls</h5>
+                     <a href="/shop/kids-clothes/girls-clothing?id=61998&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-61998_all-girls_COL1">All Girls</a> 
+                     <a href="/shop/kids-clothes/toddler-girl-clothes?id=6581&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-6581_toddler-girls-%282t-5t%29_COL1">Toddler Girls (2T-5T)</a> 
+                     <a href="/shop/kids-clothes/girls-4-16?id=167742&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-167742_girls-%284-16%29_COL1">Girls (4-16)</a> 
+                     <a href="/shop/kids-clothes/girls-shoes?id=209698&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-209698_girls%27-shoes_COL1">Girls' Shoes</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Boys</h5>
+                     <a href="/shop/kids-clothes/boys-clothing?id=61999&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-61999_all-boys_COL1">All Boys</a> 
+                     <a href="/shop/kids-clothes/toddler-boy-clothing?id=27058&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-27058_toddler-boys-%282t-5t%29_COL1">Toddler Boys (2T-5T)</a> 
+                     <a href="/shop/kids-clothes/boys-4-20?id=167743&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-167743_boys-%284-20%29_COL1">Boys (4-20)</a> 
+                     <a href="/shop/kids-clothes/boys-shoes?id=209702&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-209702_boys%27-shoes_COL1">Boys' Shoes</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Girls' Clothing</h5>
+                     <a href="/shop/kids-clothes/girls-new-arrivals?id=166942&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-166942_new-arrivals_COL2">New Arrivals</a> 
+                     <a href="/shop/kids-clothes/girls-activewear?id=177142&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-177142_activewear_COL2">Activewear</a> 
+                     <a href="/shop/kids-clothes/basics/Gender/Girls?id=196409&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-basics_COL2">Basics</a> 
+                     <a href="/shop/kids-clothes/girls-coats-jackets?id=188692&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-188692_coats-%26-jackets_COL2">Coats &amp; Jackets</a> 
+                     <a href="/shop/kids-clothes/girls-dresses?id=31460&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-31460_dresses_COL2">Dresses</a> 
+                     <a href="/shop/kids-clothes/girls-jeans?id=188691&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-188691_jeans_COL2">Jeans</a> 
+                     <a href="/shop/kids-clothes/girls-leggings-pants?id=188693&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-188693_leggings-%26-pants_COL2">Leggings &amp; Pants</a> 
+                     <a href="/shop/kids-clothes/girls-pajamas?id=188694&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-188694_pajamas_COL2">Pajamas</a> 
+                     <a href="/shop/kids-clothes/sets-outfits?id=121243&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-121243_sets-%26-outfits_COL2">Sets &amp; Outfits</a> 
+                     <a href="/shop/kids-clothes/girls-shirts-tops?id=121343&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-121343_shirts-%26-tops_COL2">Shirts &amp; Tops</a> 
+                     <a href="/shop/kids-clothes/girls-shorts?id=188696&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-188696_shorts_COL2">Shorts</a> 
+                     <a href="/shop/kids-clothes/girls-skirts?id=31462&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-31462_skirts_COL2">Skirts</a> 
+                     <a href="/shop/kids-clothes/girls-hoodies?id=188698&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-188698_sweatshirts-%26-hoodies_COL2">Sweatshirts &amp; Hoodies</a> 
+                     <a href="/shop/kids-clothes/girls-swimsuits?id=188699&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-188699_swimwear_COL2">Swimwear</a> 
+                     <a href="/shop/kids-clothes/underwear-socks?id=72681&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-72681_underwear-%26-socks_COL2">Underwear &amp; Socks</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Boys' Clothing</h5>
+                     <a href="/shop/kids-clothes/boys-new-arrivals?id=166943&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-166943_new-arrivals_COL3">New Arrivals</a> 
+                     <a href="/shop/kids-clothes/boys-activewear?id=177143&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-177143_activewear_COL3">Activewear</a> 
+                     <a href="/shop/kids-clothes/basics/Gender/Boys?id=196409&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-basics-_COL3">Basics </a> 
+                     <a href="/shop/kids-clothes/boys-coats-jackets?id=188754&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-188754_coats-%26-jackets_COL3">Coats &amp; Jackets</a> 
+                     <a href="/shop/kids-clothes/boys-jeans?id=188755&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-188755_jeans_COL3">Jeans</a> 
+                     <a href="/shop/kids-clothes/boys-outdoor?id=240516&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-240516_outdoor_COL3">Outdoor</a> 
+                     <a href="/shop/kids-clothes/boys-pajamas?id=188759&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-188759_pajamas_COL3">Pajamas</a> 
+                     <a href="/shop/kids-clothes/boys-pants?id=188756&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-188756_pants_COL3">Pants</a> 
+                     <a href="/shop/kids-clothes/boys-clothing-sets-and-outfits?id=121344&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-121344_sets-%26-outfits_COL3">Sets &amp; Outfits</a> 
+                     <a href="/shop/kids-clothes/boys-shirts?id=121345&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-121345_shirts_COL3">Shirts</a> 
+                     <a href="/shop/kids-clothes/shorts?id=121346&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-121346_shorts_COL3">Shorts</a> 
+                     <a href="/shop/kids-clothes/suits-dress-shirts?id=63016&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-63016_suits-%26-dress-shirts_COL3">Suits &amp; Dress Shirts</a> 
+                     <a href="/shop/kids-clothes/boys-hoodies?id=188761&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-188761_sweatshirts-%26-hoodies_COL3">Sweatshirts &amp; Hoodies</a> 
+                     <a href="/shop/kids-clothes/boys-swimwear?id=188762&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-188762_swimwear_COL3">Swimwear</a> 
+                     <a href="/shop/kids-clothes/boys-socks-and-underwear?id=72674&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-72674_underwear-%26-socks_COL3">Underwear &amp; Socks</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Shop Toys "R" Us</h5>
+                     <a href="/shop/all-toys/all-toys?id=45269&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-all-toys_COL4">All Toys</a> 
+                     <a href="/shop/all-toys/all-toys/Age_range_toys/0-12%20months%7C12-24%20months?id=45269&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-0-24-months-_COL4">0-24 Months </a> 
+                     <a href="/shop/all-toys/all-toys/Age_range_toys/2%20years%7C3-4%20years?id=45269&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-2-4-years-old_COL4">2-4 Years Old</a> 
+                     <a href="/shop/all-toys/all-toys/Age_range_toys/5-7%20years?id=45269&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-5-7-years-old_COL4">5-7 Years Old</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Discover</h5>
+                     <a href="/shop/kids-clothes/baby-strollers-gear?id=58376&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-58376_baby-gear-%26-essentials_COL4">Baby Gear &amp; Essentials</a> 
+                     <a href="/shop/kids-clothes/baby-gifts?id=60045&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-60045_baby-shower-gifts_COL4">Baby Shower Gifts</a> 
+                     <a href="/shop/kids-clothes/kids-character-clothes?id=65147&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-65147_character-shop_COL4">Character Shop</a> 
+                     <a href="/shop/party-supplies/kids-birthday?id=328172&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-328172_kids%27-party-supplies_COL4">Kids' Party Supplies</a> 
+                     <a href="/shop/kids-clothes/ralph-lauren-kids?id=14355&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-14355_ralph-lauren-childrenswear_COL4">Ralph Lauren Childrenswear</a> 
+                     <a href="/shop/kids-clothes/vacation-shop?id=75644&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-75644_vacation-shop_COL4">Vacation Shop</a> 
+                  </div>
+                  <div class="d-flex flex-column mt-5">
+                     <a class="special" href="/shop/kids-clothes/top-rated-styles-under-25?id=186563&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-186563_top-rated-styles-under-%2425_COL4">Top-Rated Styles Under $25</a> 
+                     <a class="special" href="/shop/kids-clothes/-up-to-70-off-clothing-more?id=22053&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-22053_up-to-70%25-off-clothing-%26-more_COL4">Up to 70% Off Clothing &amp; More</a> 
+                     <a class="special" href="/shop/kids-clothes/kids-clothes-sale?id=6086&amp;cm_sp=intl_hdr-_-kids-%26-baby-_-6086_sale-%26-clearance_COL4">Sale &amp; Clearance</a> 
+                  </div>
+               </div>
+            </div>            
+         </div>
+         <div id="home" class="flyout-container" (mouseleave)="hide('home')">
+            <div class="d-flex flex-wrap row-cols-4 mb-5">
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Bedding</h5>
+                     <a href="/shop/bed-bath/all-bedding-?id=20919&amp;cm_sp=intl_hdr-_-home-_-20919_all-bedding_COL1">All Bedding</a> 
+                     <a href="/shop/bed-bath/blankets-throws?id=29405&amp;cm_sp=intl_hdr-_-home-_-29405_blankets-%26-throws_COL1">Blankets &amp; Throws</a> 
+                     <a href="/shop/bed-bath/bed-in-a-bag?id=26795&amp;cm_sp=intl_hdr-_-home-_-26795_comforter-sets_COL1">Comforter Sets</a> 
+                     <a href="/shop/bed-bath/down-comforters?id=28898&amp;cm_sp=intl_hdr-_-home-_-28898_comforters_COL1">Comforters</a> 
+                     <a href="/shop/bed-bath/bedding-collections?id=7502&amp;cm_sp=intl_hdr-_-home-_-7502_designer-bedding_COL1">Designer Bedding</a> 
+                     <a href="/shop/bed-bath/duvet-covers?id=25045&amp;cm_sp=intl_hdr-_-home-_-25045_duvet-covers-%26-sets_COL1">Duvet Covers &amp; Sets</a> 
+                     <a href="/shop/bed-bath/pillows?id=28901&amp;cm_sp=intl_hdr-_-home-_-28901_pillows_COL1">Pillows</a> 
+                     <a href="/shop/bed-bath/bed-sheets?id=9915&amp;cm_sp=intl_hdr-_-home-_-9915_sheets-%26-pillowcases_COL1">Sheets &amp; Pillowcases</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Bath</h5>
+                     <a href="/shop/bed-bath/shower-accessories?id=8237&amp;cm_sp=intl_hdr-_-home-_-8237_all-bath_COL1">All Bath</a> 
+                     <a href="/shop/bed-bath/bathroom-accessories?id=22094&amp;cm_sp=intl_hdr-_-home-_-22094_bath-accessories_COL1">Bath Accessories</a> 
+                     <a href="/shop/bed-bath/bath-rugs-mats?id=8240&amp;cm_sp=intl_hdr-_-home-_-8240_bath-rugs-%26-bath-mats_COL1">Bath Rugs &amp; Bath Mats</a> 
+                     <a href="/shop/bed-bath/bath-towels?id=16853&amp;cm_sp=intl_hdr-_-home-_-16853_bath-towels_COL1">Bath Towels</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Cleaning &amp; Organization</h5>
+                     <a href="/shop/for-the-home/all-cleaning-organization?id=206361&amp;cm_sp=intl_hdr-_-home-_-206361_all-cleaning-%26-organization_COL1">All Cleaning &amp; Organization</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Kitchen</h5>
+                     <a href="/shop/kitchen?id=7497&amp;cm_sp=intl_hdr-_-home-_-7497_all-kitchen_COL2">All Kitchen</a> 
+                     <a href="/shop/kitchen/air-fryers?id=180345&amp;cm_sp=intl_hdr-_-home-_-180345_air-fryers_COL2">Air Fryers</a> 
+                     <a href="/shop/kitchen/baking-supplies-bakeware?id=31795&amp;cm_sp=intl_hdr-_-home-_-31795_bakeware_COL2">Bakeware</a> 
+                     <a href="/shop/kitchen/juicers?id=7583&amp;cm_sp=intl_hdr-_-home-_-7583_blenders-%26-juicers_COL2">Blenders &amp; Juicers</a> 
+                     <a href="/shop/kitchen/coffee-tea-espresso?id=24732&amp;cm_sp=intl_hdr-_-home-_-24732_coffee-%26-espresso-makers_COL2">Coffee &amp; Espresso Makers</a> 
+                     <a href="/shop/kitchen/cookware?id=7552&amp;cm_sp=intl_hdr-_-home-_-7552_cookware_COL2">Cookware</a> 
+                     <a href="/shop/kitchen/knives-cutlery?id=31760&amp;cm_sp=intl_hdr-_-home-_-31760_cutlery-%26-knives_COL2">Cutlery &amp; Knives</a> 
+                     <a href="/shop/kitchen/kitchen-gadgets?id=31839&amp;cm_sp=intl_hdr-_-home-_-31839_kitchen-gadgets_COL2">Kitchen Gadgets</a> 
+                     <a href="/shop/kitchen/stand-mixers-accessories?id=46705&amp;cm_sp=intl_hdr-_-home-_-46705_mixers-%26-attachments_COL2">Mixers &amp; Attachments</a> 
+                     <a href="/shop/kitchen/small-kitchen-appliances?id=7554&amp;cm_sp=intl_hdr-_-home-_-7554_small-appliances_COL2">Small Appliances</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">All Luggage</h5>
+                     <a href="/shop/luggage?id=16908&amp;cm_sp=intl_hdr-_-home-_-16908_all-luggage_COL2">All Luggage</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Furniture &amp; Mattresses</h5>
+                     <a href="/shop/furniture?id=29391&amp;cm_sp=intl_hdr-_-home-_-29391_furniture_COL2">Furniture</a> 
+                     <a href="/shop/mattress?id=25931&amp;cm_sp=intl_hdr-_-home-_-25931_mattresses_COL2">Mattresses</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Dining</h5>
+                     <a href="/shop/dining-entertaining?id=7498&amp;cm_sp=intl_hdr-_-home-_-7498_all-dining_COL3">All Dining</a> 
+                     <a href="/shop/dining-entertaining/barware-wine-accessories?id=28973&amp;cm_sp=intl_hdr-_-home-_-28973_barware_COL3">Barware</a> 
+                     <a href="/shop/dining-entertaining/dinnerware-fine-china?id=53629&amp;cm_sp=intl_hdr-_-home-_-53629_dinnerware_COL3">Dinnerware</a> 
+                     <a href="/shop/dining-entertaining/glassware-stemware?id=65938&amp;cm_sp=intl_hdr-_-home-_-65938_drinkware_COL3">Drinkware</a> 
+                     <a href="/shop/dining-entertaining/flatware-silverware?id=7919&amp;cm_sp=intl_hdr-_-home-_-7919_flatware_COL3">Flatware</a> 
+                     <a href="/shop/dining-entertaining/serveware?id=7923&amp;cm_sp=intl_hdr-_-home-_-7923_serveware_COL3">Serveware</a> 
+                     <a href="/shop/dining-entertaining/table-linens?id=17199&amp;cm_sp=intl_hdr-_-home-_-17199_table-linens_COL3">Table Linens</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Home Decor</h5>
+                     <a href="/shop/all-home-decor?id=190331&amp;cm_sp=intl_hdr-_-home-_-190331_all-home-d%C3%A9cor_COL3">All Home Décor</a> 
+                     <a href="/shop/all-home-decor/all-wall-decor-mirrors?id=190362&amp;cm_sp=intl_hdr-_-home-_-190362_art-%26-wall-d%C3%A9cor_COL3">Art &amp; Wall Décor</a> 
+                     <a href="/shop/all-home-decor/candles-diffusers?id=190352&amp;cm_sp=intl_hdr-_-home-_-190352_candles-%26-diffusers_COL3">Candles &amp; Diffusers</a> 
+                     <a href="/shop/window-treatments-blinds/curtains-drapes?id=198065&amp;cm_sp=intl_hdr-_-home-_-198065_curtains-%26-drapes_COL3">Curtains &amp; Drapes</a> 
+                     <a href="/shop/featured/flowers%20%26%20plants?cm_sp=intl_hdr-_-home-_-flowers-%26-plants_COL3">Flowers &amp; Plants</a> 
+                     <a href="/shop/all-home-decor/lighting-lamps?id=39267&amp;cm_sp=intl_hdr-_-home-_-39267_lighting-%26-lamp-fixtures_COL3">Lighting &amp; Lamp Fixtures</a> 
+                     <a href="/shop/all-home-decor/all-home-accents?id=190357&amp;cm_sp=intl_hdr-_-home-_-190357_home-accents_COL3">Home Accents</a> 
+                     <a href="/shop/area-rugs?id=190852&amp;cm_sp=intl_hdr-_-home-_-190852_rugs_COL3">Rugs</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Outdoor Living</h5>
+                     <a href="/shop/furniture/outdoor-patio-furniture?id=70056&amp;cm_sp=intl_hdr-_-home-_-70056_outdoor-%26-patio-furniture_COL4">Outdoor &amp; Patio Furniture</a> 
+                     <a href="/shop/furniture/outdoor-accessories?id=175842&amp;cm_sp=intl_hdr-_-home-_-175842_outdoor-accessories-%26-decor_COL4">Outdoor Accessories &amp; Decor</a> 
+                     <a href="/shop/dining-entertaining/outdoor-dinnerware?id=31865&amp;cm_sp=intl_hdr-_-home-_-31865_outdoor-dining-%26-entertaining_COL4">Outdoor Dining &amp; Entertaining</a> 
+                     <a href="/shop/for-the-home/outdoor-recreation-fitness?id=254356&amp;cm_sp=intl_hdr-_-home-_-254356_outdoor-toys-%26-games_COL4">Outdoor Toys &amp; Games</a> 
+                     <a href="/shop/lawn-garden/all-lawn-garden?id=326057&amp;cm_sp=intl_hdr-_-home-_-326057_lawn-%26-garden_COL4">Lawn &amp; Garden</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Discover</h5>
+                     <a href="https://www.macys.com/s/fathers-day-gift-guide/?cm_sp=intl_hdr-_-home-_-father%27s-day-gift-guide_COL4">Father's Day Gift Guide</a> 
+                     <a href="/shop/gourmet-food-and-gift-baskets?id=207577&amp;cm_sp=intl_hdr-_-home-_-207577_candy-and-gourmet-food_COL4">Candy and Gourmet Food</a> 
+                     <a href="/shop/electronics?id=152943&amp;cm_sp=intl_hdr-_-home-_-152943_electronics_COL4">Electronics</a> 
+                     <a href="/shop/kids-and-baby-room/all-kids-baby-room?id=261156&amp;cm_sp=intl_hdr-_-home-_-261156_kids-%26-baby-room_COL4">Kids &amp; Baby Room</a> 
+                     <a href="/shop/party-supplies?id=190198&amp;cm_sp=intl_hdr-_-home-_-190198_party-supplies_COL4">Party Supplies</a> 
+                     <a href="/shop/pet-supplies?id=197851&amp;cm_sp=intl_hdr-_-home-_-197851_pet-supplies_COL4">Pet Supplies</a> 
+                  </div>
+                  <div class="d-flex flex-column mt-5">
+                     <a class="special" href="/shop/for-the-home/new-arrivals?id=69766&amp;cm_sp=intl_hdr-_-home-_-69766_new-arrivals_COL4">New Arrivals</a> 
+                     <a class="special" href="/shop/for-the-home/home-sale-clearance?id=24294&amp;cm_sp=intl_hdr-_-home-_-24294_sale-%26-clearance_COL4">Sale &amp; Clearance</a> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div id="shoes" class="flyout-container" (mouseleave)="hide('shoes')">
+            <div class="d-flex flex-wrap row-cols-4 mb-5">
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Women's Shoes</h5>
+                     <a href="/shop/shoes/all-womens-shoes?id=56233&amp;cm_sp=intl_hdr-_-shoes-_-56233_all-women%27s-shoes_COL1">All Women's Shoes</a> 
+                     <a href="/shop/shoes/new-arrivals?id=167042&amp;cm_sp=intl_hdr-_-shoes-_-167042_new-arrivals_COL1">New Arrivals</a> 
+                     <a href="/shop/shoes/sandals?id=17570&amp;cm_sp=intl_hdr-_-shoes-_-17570_sandals_COL1">Sandals</a> 
+                     <a href="/shop/shoes/sneakers?id=26499&amp;cm_sp=intl_hdr-_-shoes-_-26499_athletic-shoes-%26-sneakers_COL1">Athletic Shoes &amp; Sneakers</a> 
+                     <a href="/shop/shoes/comfort-shoes?id=27902&amp;cm_sp=intl_hdr-_-shoes-_-27902_comfort-shoes_COL1">Comfort Shoes</a> 
+                     <a href="/shop/shoes/designer-shoes?id=257162&amp;cm_sp=intl_hdr-_-shoes-_-257162_designer-shoes_COL1">Designer Shoes</a> 
+                     <a href="/shop/shoes/bridal-evening?id=13614&amp;cm_sp=intl_hdr-_-shoes-_-13614_evening-%26-wedding_COL1">Evening &amp; Wedding</a> 
+                     <a href="/shop/shoes/flats?id=50295&amp;cm_sp=intl_hdr-_-shoes-_-50295_flats-%26-loafers_COL1">Flats &amp; Loafers</a> 
+                     <a href="/shop/shoes/high-heels?id=71123&amp;cm_sp=intl_hdr-_-shoes-_-71123_heels-%26-pumps_COL1">Heels &amp; Pumps</a> 
+                     <a href="/shop/shoes/mules-slides?id=169950&amp;cm_sp=intl_hdr-_-shoes-_-169950_mules-%26-slides_COL1">Mules &amp; Slides</a> 
+                     <a href="/shop/shoes/boots?id=25122&amp;cm_sp=intl_hdr-_-shoes-_-25122_boots_COL1">Boots</a> 
+                     <a href="/shop/shoes/booties?id=13616&amp;cm_sp=intl_hdr-_-shoes-_-13616_booties_COL1">Booties</a> 
+                     <a href="/shop/shoes/slippers?id=16108&amp;cm_sp=intl_hdr-_-shoes-_-16108_slippers_COL1">Slippers</a> 
+                     <a href="/shop/shoes/wedges?id=13808&amp;cm_sp=intl_hdr-_-shoes-_-13808_wedges_COL1">Wedges</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Women's Shoe Brands</h5>
+                     <a href="/shop/all-brands/shoe-brands?id=63583&amp;cm_sp=intl_hdr-_-shoes-_-63583_all-brands_COL2">All Brands</a> 
+                     <a href="/shop/shoes/adidas?id=65412&amp;cm_sp=intl_hdr-_-shoes-_-65412_adidas_COL2">Adidas</a> 
+                     <a href="/shop/shoes/womens-finish-line-athletic-shoes/Brand/Birkenstock?id=63268&amp;cm_sp=intl_hdr-_-shoes-_-birkenstock_COL2">Birkenstock</a> 
+                     <a href="/shop/shoes/calvin-klein?id=55797&amp;cm_sp=intl_hdr-_-shoes-_-55797_calvin-klein_COL2">Calvin Klein</a> 
+                     <a href="/shop/shoes/clarks?id=56242&amp;cm_sp=intl_hdr-_-shoes-_-56242_clarks_COL2">Clarks</a> 
+                     <a href="/shop/shoes/coach-shoes?id=41259&amp;cm_sp=intl_hdr-_-shoes-_-41259_coach_COL2">COACH</a> 
+                     <a href="/shop/shoes/inc-international-concepts?id=55745&amp;cm_sp=intl_hdr-_-shoes-_-55745_inc-international-concepts_COL2">INC International Concepts</a> 
+                     <a href="/shop/shoes/michael-michael-kors?id=55760&amp;cm_sp=intl_hdr-_-shoes-_-55760_michael-kors_COL2">Michael Kors</a> 
+                     <a href="/shop/shoes/naturalizer?id=55782&amp;cm_sp=intl_hdr-_-shoes-_-55782_naturalizer_COL2">Naturalizer</a> 
+                     <a href="/shop/shoes/nike-womens-shoes?id=57638&amp;cm_sp=intl_hdr-_-shoes-_-57638_nike_COL2">Nike</a> 
+                     <a href="/shop/shoes/sam-edelman?id=253168&amp;cm_sp=intl_hdr-_-shoes-_-253168_sam-edelman_COL2">Sam Edelman</a> 
+                     <a href="/shop/shoes/skechers?id=80685&amp;cm_sp=intl_hdr-_-shoes-_-80685_skechers_COL2">Skechers</a> 
+                     <a href="/shop/shoes/steve-madden?id=55765&amp;cm_sp=intl_hdr-_-shoes-_-55765_steve-madden_COL2">Steve Madden</a> 
+                     <a href="/shop/shoes/ugg?id=110649&amp;cm_sp=intl_hdr-_-shoes-_-110649_ugg%C2%AE_COL2">UGG®</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Men's Shoes</h5>
+                     <a href="/shop/mens-clothing/shop-all-mens-shoes?id=55822&amp;cm_sp=intl_hdr-_-shoes-_-55822_all-men%27s-shoes_COL3">All Men's Shoes</a> 
+                     <a href="/shop/mens-clothing/mens-sneakers?id=55642&amp;cm_sp=intl_hdr-_-shoes-_-55642_athletic-%26-sneakers_COL3">Athletic &amp; Sneakers</a> 
+                     <a href="/shop/mens-clothing/mens-boat-shoes?id=55636&amp;cm_sp=intl_hdr-_-shoes-_-55636_boat-shoes_COL3">Boat Shoes</a> 
+                     <a href="/shop/mens-clothing/mens-casual-shoes?id=59851&amp;cm_sp=intl_hdr-_-shoes-_-59851_casual-shoes_COL3">Casual Shoes</a> 
+                     <a href="/shop/mens-clothing/dress-shoes?id=70405&amp;cm_sp=intl_hdr-_-shoes-_-70405_dress-shoes_COL3">Dress Shoes</a> 
+                     <a href="/shop/mens-clothing/drivers?id=79687&amp;cm_sp=intl_hdr-_-shoes-_-79687_loafers-%26-drivers_COL3">Loafers &amp; Drivers</a> 
+                     <a href="/shop/mens-clothing/mens-sandals?id=55640&amp;cm_sp=intl_hdr-_-shoes-_-55640_sandals-%26-flip-flops_COL3">Sandals &amp; Flip-Flops</a> 
+                     <a href="/shop/mens-clothing/mens-summer-shoes?id=78256&amp;cm_sp=intl_hdr-_-shoes-_-78256_summer-shoes_COL3">Summer Shoes</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Kids' Shoes</h5>
+                     <a href="/shop/kids-clothes/kids-shoes?id=48561&amp;cm_sp=intl_hdr-_-shoes-_-48561_all-kids%27-shoes_COL3">All Kids' Shoes</a> 
+                     <a href="/shop/kids-clothes/baby-shoes?id=73512&amp;cm_sp=intl_hdr-_-shoes-_-73512_baby-shoes_COL3">Baby Shoes</a> 
+                     <a href="/shop/kids-clothes/boys-shoes?id=209702&amp;cm_sp=intl_hdr-_-shoes-_-209702_boys%27-shoes_COL3">Boys' Shoes</a> 
+                     <a href="/shop/kids-clothes/girls-shoes?id=209698&amp;cm_sp=intl_hdr-_-shoes-_-209698_girls%27-shoes_COL3">Girls' Shoes</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Discover</h5>
+                     <a href="/shop/shoes/womens-finish-line-athletic-shoes?id=63268&amp;cm_sp=intl_hdr-_-shoes-_-63268_finish-line-women%27s-shoes_COL4">Finish Line Women's Shoes</a> 
+                     <a href="/shop/shoes/sandals/Sandal_type/Platform?id=17570&amp;cm_sp=intl_hdr-_-shoes-_-platform-sandals_COL4">Platform Sandals</a> 
+                     <a href="/shop/womens-clothing/womens-resort-vacation-wear/Business_category,Product_department/Women%27s%20Shoes,Sandals?id=53427&amp;cm_sp=intl_hdr-_-shoes-_-vacation-shop_COL4">Vacation Shop</a> 
+                     <a href="/s/contemporary/browsepool/?gender=women&amp;pagetitle=Shoes&amp;url=%2Fshop%2Fcontemporary-nocrawl%2Fwomens-contemporary-nocrawl%2FDepartment_type%2FShoes%3Fid%3D315756&amp;cm_sp=intl_hdr-_-shoes-_-contemporary-trends_COL4">Contemporary Trends</a> 
+                     <a href="/shop/diverse-owned-brands/Business_category/Women%27s%20Shoes?id=308956&amp;cm_sp=intl_hdr-_-shoes-_-diverse-owned-brands_COL4">Diverse Owned Brands</a> 
+                     <a href="/s/own-your-style/?cm_sp=us_hdr-_-own-your-style-_-324256_own-your-style&amp;cm_sp=intl_hdr-_-shoes-_-own-your-style_COL4">Own Your Style</a> 
+                  </div>
+                  <div class="d-flex flex-column mt-5">
+                     <a class="special" href="/shop/shoes/flat-sandals-under-50?id=308256&amp;cm_sp=intl_hdr-_-shoes-_-308256_flat-sandals-under-%2450_COL4">Flat Sandals Under $50</a> 
+                     <a class="special" href="/shop/shoes/30-off-platform-sandals?id=271656&amp;cm_sp=intl_hdr-_-shoes-_-271656_30%25-off-platform-sandals_COL4">30% Off Platform Sandals</a> 
+                     <a class="special" href="/shop/shoes/sale-clearance?id=13604&amp;cm_sp=intl_hdr-_-shoes-_-13604_sale-%26-clearance_COL4">Sale &amp; Clearance</a> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div id="accessories" class="flyout-container" (mouseleave)="hide('accessories')">
+            <div class="d-flex flex-wrap row-cols-4 mb-5">
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Brands</h5>
+                     <a href="/shop/all-brands/handbags-accessories?id=63570&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-63570_all-brands_COL1">All Brands</a> 
+                     <a href="/shop/handbags-accessories/designer-handbags?id=69603&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-69603_designer-handbags_COL1">Designer Handbags</a> 
+                     <a href="/shop/handbags-accessories/michael-michael-kors?id=27726&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-27726_michael-kors_COL1">Michael Kors</a> 
+                     <a href="/shop/handbags-accessories/coach?id=25300&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-25300_coach_COL1">COACH</a> 
+                     <a href="/shop/handbags-accessories/calvin-klein?id=54498&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-54498_calvin-klein_COL1">Calvin Klein</a> 
+                     <a href="/shop/handbags-accessories/brahmin?id=27725&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-27725_brahmin_COL1">Brahmin</a> 
+                     <a href="/shop/handbags-accessories/guess?id=35848&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-35848_guess_COL1">GUESS</a> 
+                     <a href="/shop/handbags-accessories/dkny?id=141850&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-141850_dkny_COL1">DKNY</a> 
+                     <a href="/shop/handbags-accessories/lauren-ralph-lauren?id=52273&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-52273_lauren-ralph-lauren_COL1">Lauren Ralph Lauren</a> 
+                     <a href="/shop/handbags-accessories/kate-spade-purses?id=69630&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-69630_kate-spade-new-york_COL1">kate spade new york</a> 
+                     <a href="/shop/handbags-accessories/patricia-nash?id=58096&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-58096_patricia-nash_COL1">Patricia Nash</a> 
+                     <a href="/shop/handbags-accessories/karl-lagerfeld-paris?id=147242&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-147242_karl-lagerfeld-paris_COL1">Karl Lagerfeld Paris</a> 
+                     <a href="/shop/handbags-accessories/radley-london?id=148842&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-148842_radley-london_COL1">Radley London</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Handbags &amp; Wallets</h5>
+                     <a href="/shop/handbags-accessories/all-handbags-wallets?id=203051&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-203051_all-handbags-%26-wallets_COL2">All Handbags &amp; Wallets</a> 
+                     <a href="/shop/handbags-accessories/new-arrivals?id=166957&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-166957_new-arrivals_COL2">New Arrivals</a> 
+                     <a href="/shop/handbags-accessories/summer-handbags?id=277057&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-277057_summer-handbags_COL2">Summer Handbags</a> 
+                     <a href="/shop/handbags-accessories/best-sellers?id=96342&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-96342_best-sellers_COL2">Best Sellers</a> 
+                     <a href="/shop/handbags-accessories/backpacks?id=51906&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-51906_backpacks_COL2">Backpacks</a> 
+                     <a href="/shop/handbags-accessories/fanny-packs-belt-bags?id=147942&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-147942_belt-bags-%26-fanny-packs_COL2">Belt Bags &amp; Fanny Packs</a> 
+                     <a href="/shop/handbags-accessories/clutches-evening-bags?id=27691&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-27691_clutches-%26-evening-bags_COL2">Clutches &amp; Evening Bags</a> 
+                     <a href="/shop/handbags-accessories/crossbody-messenger-bags?id=46011&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-46011_crossbody-bags_COL2">Crossbody Bags</a> 
+                     <a href="/shop/handbags-accessories/hobo-bags?id=46012&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-46012_hobo-bags_COL2">Hobo Bags</a> 
+                     <a href="/shop/handbags-accessories/satchels?id=46013&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-46013_satchels-%26-top-handles_COL2">Satchels &amp; Top Handles</a> 
+                     <a href="/shop/handbags-accessories/shoulder-bags?id=46014&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-46014_shoulder-bags_COL2">Shoulder Bags</a> 
+                     <a href="/shop/handbags-accessories/tote-bags?id=46015&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-46015_tote-bags_COL2">Tote Bags</a> 
+                     <a href="/shop/handbags-accessories/wallets-wristlets?id=27689&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-27689_wallets-%26-wristlets_COL2">Wallets &amp; Wristlets</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Accessories</h5>
+                     <a href="/shop/handbags-accessories/accessories?id=29440&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-29440_all-accessories_COL3">All Accessories</a> 
+                     <a href="/shop/handbags-accessories/belts?id=27807&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-27807_belts_COL3">Belts</a> 
+                     <a href="/shop/handbags-accessories/hair-accessories?id=199853&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-199853_hair-accessories_COL3">Hair Accessories</a> 
+                     <a href="/shop/handbags-accessories/hats?id=77979&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-77979_hats_COL3">Hats</a> 
+                     <a href="/shop/handbags-accessories/phone-cases-tech-accessories?id=111854&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-111854_phone-cases-%26-tech-accessories_COL3">Phone Cases &amp; Tech Accessories</a> 
+                     <a href="/shop/handbags-accessories/scarves-wraps?id=31957&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-31957_scarves-%26-wraps_COL3">Scarves &amp; Wraps</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Sunglasses &amp; Eyeglasses</h5>
+                     <a href="/shop/handbags-accessories/sunglass-hut?id=301960&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-301960_sunglasses-by-sunglass-hut_COL3">Sunglasses by Sunglass Hut</a> 
+                     <a href="/shop/handbags-accessories/eyeglasses-by-lenscrafters?id=144142&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-144142_eyeglasses-by-lenscrafters_COL3">Eyeglasses by LensCrafters</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Discover</h5>
+                     <a href="/shop/handbags-accessories/the-signature-shop?id=199162&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-199162_the-signature-shop_COL4">The Signature Shop</a> 
+                     <a href="/shop/handbags-accessories/handbags-under-100?id=198951&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-198951_handbags-under-%24100_COL4">Handbags Under $100</a> 
+                     <a href="/shop/handbags-accessories/vacation-shop?id=253058&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-253058_vacation-shop_COL4">Vacation Shop</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Luggage &amp; Travel</h5>
+                     <a href="/shop/luggage/all-luggage?id=76877&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-76877_all-luggage_COL4">All Luggage</a> 
+                     <a href="/shop/handbags-accessories/weekenders-duffles?id=284756&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-284756_weekenders-%26-duffles_COL4">Weekenders &amp; Duffles</a> 
+                     <a href="/shop/luggage/travel-accessories?id=29563&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-29563_travel-accessories_COL4">Travel Accessories</a> 
+                  </div>
+                  <div class="d-flex flex-column mt-5">
+                     <a class="special" href="/shop/handbags-accessories/flash-sale-25-50-off-bags-sunglasses?id=236012&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-236012_flash-sale%3A-25-50%25-off-bags-%26-sunglasses_COL4">Flash Sale: 25-50% Off Bags &amp; Sunglasses</a> 
+                     <a class="special" href="/shop/handbags-accessories/buy-1-get-1-free-handbags?id=126742&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-126742_buy-1%2C-get-1-free-handbags_COL4">Buy 1, Get 1 Free Handbags</a> 
+                     <a class="special" href="/shop/handbags-accessories/sale-clearance?id=28273&amp;cm_sp=intl_hdr-_-handbags-%26-accessories-_-28273_sale-%26-clearance_COL4">Sale &amp; Clearance</a> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div id="jewelry" class="flyout-container" (mouseleave)="hide('jewelry')">
+            <div class="d-flex flex-wrap row-cols-4 mb-5">
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Fine Jewelry</h5>
+                     <a href="/shop/jewelry-watches/all-fine-jewelry?id=65993&amp;cm_sp=intl_hdr-_-jewelry-_-65993_all-fine-jewelry_COL1">All Fine Jewelry</a> 
+                     <a href="/shop/jewelry-watches/new-arrivals?id=240928&amp;cm_sp=intl_hdr-_-jewelry-_-240928_new-arrivals_COL1">New Arrivals</a> 
+                     <a href="/shop/jewelry-watches/red-box-gifts?id=200851&amp;cm_sp=intl_hdr-_-jewelry-_-200851_best-sellers_COL1">Best Sellers</a> 
+                     <a href="/shop/jewelry-watches/bracelets?id=10834&amp;cm_sp=intl_hdr-_-jewelry-_-10834_bracelets_COL1">Bracelets</a> 
+                     <a href="/shop/jewelry-watches/earrings?id=10835&amp;cm_sp=intl_hdr-_-jewelry-_-10835_earrings_COL1">Earrings</a> 
+                     <a href="/shop/jewelry-watches/necklaces?id=9569&amp;cm_sp=intl_hdr-_-jewelry-_-9569_necklaces_COL1">Necklaces</a> 
+                     <a href="/shop/jewelry-watches/rings?id=21176&amp;cm_sp=intl_hdr-_-jewelry-_-21176_rings_COL1">Rings</a> 
+                     <a href="/shop/jewelry-watches/diamond-jewelry?id=57702&amp;cm_sp=intl_hdr-_-jewelry-_-57702_diamond-jewelry_COL1">Diamond Jewelry</a> 
+                     <a href="/shop/jewelry-watches/pearls?id=42771&amp;cm_sp=intl_hdr-_-jewelry-_-42771_pearls_COL1">Pearls</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Wedding Jewelry</h5>
+                     <a href="/shop/jewelry-watches/all-wedding-jewelry?id=77998&amp;cm_sp=intl_hdr-_-jewelry-_-77998_all-wedding-jewelry_COL1">All Wedding Jewelry</a> 
+                     <a href="/shop/jewelry-watches/engagement-rings?id=200053&amp;cm_sp=intl_hdr-_-jewelry-_-200053_engagement-rings_COL1">Engagement Rings</a> 
+                     <a href="/shop/jewelry-watches/wedding-engagement-ring-guide?id=78800&amp;cm_sp=intl_hdr-_-jewelry-_-78800_engagement-ring-guide_COL1">Engagement Ring Guide</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Fashion Jewelry</h5>
+                     <a href="/shop/jewelry-watches/all-fashion-jewelry?id=55352&amp;cm_sp=intl_hdr-_-jewelry-_-55352_all-fashion-jewelry_COL2">All Fashion Jewelry</a> 
+                     <a href="/shop/jewelry-watches/new-arrivals?id=121347&amp;cm_sp=intl_hdr-_-jewelry-_-121347_new-arrivals_COL2">New Arrivals</a> 
+                     <a href="/shop/jewelry-watches/bracelets?id=78232&amp;cm_sp=intl_hdr-_-jewelry-_-78232_bracelets_COL2">Bracelets</a> 
+                     <a href="/shop/jewelry-watches/earrings?id=78233&amp;cm_sp=intl_hdr-_-jewelry-_-78233_earrings_COL2">Earrings</a> 
+                     <a href="/shop/jewelry-watches/necklaces?id=78234&amp;cm_sp=intl_hdr-_-jewelry-_-78234_necklaces_COL2">Necklaces</a> 
+                     <a href="/shop/jewelry-watches/rings?id=78235&amp;cm_sp=intl_hdr-_-jewelry-_-78235_rings_COL2">Rings</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Men's Jewelry</h5>
+                     <a href="/shop/jewelry-watches/mens-jewelry-accessories?id=43877&amp;cm_sp=intl_hdr-_-jewelry-_-43877_men%27s-jewelry-%26-cufflinks_COL2">Men's Jewelry &amp; Cufflinks</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Watches</h5>
+                     <a href="/shop/jewelry-watches/all-watches?id=239616&amp;cm_sp=intl_hdr-_-jewelry-_-239616_all-watches_COL2">All Watches</a> 
+                     <a href="/shop/jewelry-watches/new-arrivals?id=166447&amp;cm_sp=intl_hdr-_-jewelry-_-166447_new-arrivals_COL2">New Arrivals</a> 
+                     <a href="/shop/jewelry-watches/mens-watches?id=57386&amp;cm_sp=intl_hdr-_-jewelry-_-57386_men%27s-watches_COL2">Men's Watches</a> 
+                     <a href="/shop/jewelry-watches/womens-watches?id=57385&amp;cm_sp=intl_hdr-_-jewelry-_-57385_women%27s-watches_COL2">Women's Watches</a> 
+                     <a href="/shop/jewelry-watches/kids-watches?id=253356&amp;cm_sp=intl_hdr-_-jewelry-_-253356_kids%27-watches_COL2">Kids' Watches</a> 
+                     <a href="/shop/jewelry-watches/luxury-brand-watches?id=75900&amp;cm_sp=intl_hdr-_-jewelry-_-75900_luxury-watches_COL2">Luxury Watches</a> 
+                     <a href="/shop/jewelry-watches/smart-watches?id=71570&amp;cm_sp=intl_hdr-_-jewelry-_-71570_smart-watches_COL2">Smart Watches</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Brands </h5>
+                     <a href="/shop/all-brands/jewelry?id=65448&amp;cm_sp=intl_hdr-_-jewelry-_-65448_all-jewelry-brands_COL3">All Jewelry Brands</a> 
+                     <a href="/shop/all-brands/watches?id=63568&amp;cm_sp=intl_hdr-_-jewelry-_-63568_all-watch-brands_COL3">All Watch Brands</a> 
+                     <a href="/shop/jewelry-watches/alethea-jewelry?id=266664&amp;cm_sp=intl_hdr-_-jewelry-_-266664_alethea_COL3">Alethea</a> 
+                     <a href="/shop/jewelry-watches/apple-?id=101043&amp;cm_sp=intl_hdr-_-jewelry-_-101043_apple_COL3">Apple</a> 
+                     <a href="/shop/jewelry-watches/bulova?id=26215&amp;cm_sp=intl_hdr-_-jewelry-_-26215_bulova_COL3">Bulova</a> 
+                     <a href="/shop/jewelry-watches/citizen-watches?id=57367&amp;cm_sp=intl_hdr-_-jewelry-_-57367_citizen_COL3">Citizen</a> 
+                     <a href="/shop/jewelry-watches/effy-jewelry?id=63694&amp;cm_sp=intl_hdr-_-jewelry-_-63694_effy_COL3">EFFY</a> 
+                     <a href="/shop/jewelry-watches/gucci-watches?id=57427&amp;cm_sp=intl_hdr-_-jewelry-_-57427_gucci_COL3">Gucci</a> 
+                     <a href="/shop/jewelry-watches/g-shock?id=57370&amp;cm_sp=intl_hdr-_-jewelry-_-57370_g-shock_COL3">G-Shock</a> 
+                     <a href="/shop/jewelry-watches/le-vian?id=65939&amp;cm_sp=intl_hdr-_-jewelry-_-65939_le-vian_COL3">Le Vian</a> 
+                     <a href="/shop/jewelry-watches/michael-kors-watches?id=57374&amp;cm_sp=intl_hdr-_-jewelry-_-57374_michael-kors_COL3">Michael Kors</a> 
+                     <a href="/shop/jewelry-watches/movado?id=57375&amp;cm_sp=intl_hdr-_-jewelry-_-57375_movado_COL3">Movado</a> 
+                     <a href="/shop/jewelry-watches/swarovski?id=72179&amp;cm_sp=intl_hdr-_-jewelry-_-72179_swarovski_COL3">Swarovski</a> 
+                     <a href="/shop/jewelry-watches/seiko-watches?id=57376&amp;cm_sp=intl_hdr-_-jewelry-_-57376_seiko_COL3">Seiko</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Jewelry Gifts</h5>
+                     <a href="/shop/jewelry-watches/shop-all-gifts?id=244108&amp;cm_sp=intl_hdr-_-jewelry-_-244108_shop-all-gifts_COL4">Shop All Gifts</a> 
+                     <a href="/shop/jewelry-watches/gift-sets?id=66424&amp;cm_sp=intl_hdr-_-jewelry-_-66424_gift-sets_COL4">Gift Sets</a> 
+                     <a href="/shop/jewelry-watches/gifts-50-under?id=255586&amp;cm_sp=intl_hdr-_-jewelry-_-255586_gifts-%2450-%26-under_COL4">Gifts $50 &amp; Under</a> 
+                     <a href="/shop/jewelry-watches/gifts-100-under?id=267462&amp;cm_sp=intl_hdr-_-jewelry-_-267462_gifts-%24100-%26-under_COL4">Gifts $100 &amp; Under</a> 
+                     <a href="/shop/jewelry-watches/luxe-gifts?id=304456&amp;cm_sp=intl_hdr-_-jewelry-_-304456_luxe-gifts_COL4">Luxe Gifts</a> 
+                  </div>
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Discover </h5>
+                     <a href="/shop/jewelry-watches/diverse-owned-brands?id=313786&amp;cm_sp=intl_hdr-_-jewelry-_-313786_diverse-owned-brands_COL4">Diverse Owned Brands</a> 
+                     <a href="/shop/jewelry-watches/own-your-style?id=306094&amp;cm_sp=intl_hdr-_-jewelry-_-306094_own-your-style_COL4">Own Your Style</a> 
+                     <a href="/shop/jewelry-watches/personalized-jewelry?id=60194&amp;cm_sp=intl_hdr-_-jewelry-_-60194_personalized-jewelry_COL4">Personalized Jewelry</a> 
+                  </div>
+                  <div class="d-flex flex-column mt-5">
+                     <a class="special" href="/shop/jewelry-watches/flash-sale-50-off-watches?id=25221&amp;cm_sp=intl_hdr-_-jewelry-_-25221_flash-sale%3A-50%25-off-watches_COL4">Flash Sale: 50% Off Watches</a> 
+                     <a class="special" href="/shop/jewelry-watches/jewelry-sale?id=22000&amp;cm_sp=intl_hdr-_-jewelry-_-22000_jewelry-sale-%26-clearance_COL4">Jewelry Sale &amp; Clearance</a> 
+                     <a class="special" href="/shop/jewelry-watches/watch-sale?id=28067&amp;cm_sp=intl_hdr-_-jewelry-_-28067_watches-sale-%26-clearance_COL4">Watches Sale &amp; Clearance</a> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div id="sale" class="flyout-container" (mouseleave)="hide('sale')">
+            <div class="d-flex flex-wrap row-cols-4 mb-5">
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Women's Sale</h5>
+                     <a href="/shop/womens-clothing/womens-sale-clearance?id=10066&amp;cm_sp=intl_hdr-_-sale-_-10066_women%27s-clothing_COL1">Women's Clothing</a> 
+                     <a href="/shop/shoes/sale-clearance?id=13604&amp;cm_sp=intl_hdr-_-sale-_-13604_women%27s-shoes-_COL1">Women's Shoes </a> 
+                     <a href="/shop/handbags-accessories/sale-clearance?id=28273&amp;cm_sp=intl_hdr-_-sale-_-28273_handbags-%26-accessories_COL1">Handbags &amp; Accessories</a> 
+                     <a href="/shop/jewelry-watches/jewelry-sale/Gender/Women?id=22000&amp;cm_sp=intl_hdr-_-sale-_-jewelry_COL1">Jewelry</a> 
+                     <a href="/shop/jewelry-watches/watch-sale/Gender/Women?id=28067&amp;edge=hybrid&amp;cm_sp=intl_hdr-_-sale-_-watches_COL1">Watches</a> 
+                     <a href="/shop/makeup-and-perfume/makeup-sale-discount?id=66190&amp;cm_sp=intl_hdr-_-sale-_-66190_beauty-_COL1">Beauty </a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Men's Sale</h5>
+                     <a href="/shop/mens-clothing/sale-clearance?id=9559&amp;cm_sp=intl_hdr-_-sale-_-9559_men%27s-clothing_COL2">Men's Clothing</a> 
+                     <a href="/shop/mens-clothing/sale-clearance?id=43387&amp;cm_sp=intl_hdr-_-sale-_-43387_men%27s-shoes_COL2">Men's Shoes</a> 
+                     <a href="/shop/mens-clothing/mens-accessories/Special_offers/Sales%20%26%20Discounts?id=47665&amp;cm_sp=intl_hdr-_-sale-_-bags-%26-accessories-_COL2">Bags &amp; Accessories </a> 
+                     <a href="/shop/mens-clothing/mens-activewear/Special_offers/Sales%20%26%20Discounts?id=3296&amp;cm_sp=intl_hdr-_-sale-_-activewear_COL2">Activewear</a> 
+                     <a href="/shop/jewelry-watches/watch-sale/Gender/Men?id=28067&amp;edge=hybrid&amp;cm_sp=intl_hdr-_-sale-_-watches_COL2">Watches</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Kids &amp; Baby Sale</h5>
+                     <a href="/shop/kids-clothes/kids-clothes-sale/Gender/Girls?id=6086&amp;cm_sp=intl_hdr-_-sale-_-girls-clothing_COL3">Girls Clothing</a> 
+                     <a href="/shop/kids-clothes/kids-clothes-sale/Gender/Boys?id=6086&amp;cm_sp=intl_hdr-_-sale-_-boys-clothing_COL3">Boys Clothing</a> 
+                     <a href="/shop/kids-clothes/sale-clearance?id=64780&amp;cm_sp=intl_hdr-_-sale-_-64780_baby-clothing_COL3">Baby Clothing</a> 
+                     <a href="/shop/for-the-home/sale-clearance?id=211966&amp;edge=hybrid&amp;cm_sp=intl_hdr-_-sale-_-toys-%26-games_COL3">Toys &amp; Games</a> 
+                  </div>
+               </div>
+               <div class="col">
+                  <div class="d-flex flex-column">
+                     <h5 class="mb-2 mt-5">Home Sale</h5>
+                     <a href="/shop/bed-bath/sale-closeouts?id=9425&amp;cm_sp=intl_hdr-_-sale-_-9425_bed-%26-bath-_COL4">Bed &amp; Bath </a> 
+                     <a href="/shop/kitchen/sale-clearance?id=9427&amp;cm_sp=intl_hdr-_-sale-_-9427_kitchen_COL4">Kitchen</a> 
+                     <a href="/shop/dining-entertaining/sale-clearance?id=9545&amp;cm_sp=intl_hdr-_-sale-_-9545_dining_COL4">Dining</a> 
+                     <a href="/shop/furniture/furniture-sale?id=31260&amp;cm_sp=intl_hdr-_-sale-_-31260_furniture_COL4">Furniture</a> 
+                     <a href="https://www.macys.com/shop/furniture/furniture-sale?id=196916&amp;cm_sp=intl_hdr-_-sale-_-outdoor_COL4">Outdoor</a> 
+                     <a href="/shop/mattress/sale?id=40238&amp;cm_sp=intl_hdr-_-sale-_-40238_mattresses_COL4">Mattresses</a> 
+                     <a href="/shop/luggage/sale-clearance?id=17246&amp;cm_sp=intl_hdr-_-sale-_-17246_luggage_COL4">Luggage</a> 
+                  </div>
+                  <div class="d-flex flex-column mt-5">
+                     <a class="special" href="/shop/limited-time-sale/flash-sale-25-50-off-graduation-flash-sale?id=246057&amp;cm_sp=intl_hdr-_-sale-_-flash-sale%3A-25-50%25-off-graduation-gifts_COL4">Flash Sale: 25-50% off Graduation Gifts</a> 
+                     <a class="special" href="/shop/sale?id=3536&amp;cm_sp=intl_hdr-_-sale-_-sale-%26-clearance_COL4">Sale &amp; Clearance</a> 
+                     <a class="special" href="/shop/coupons-deals?cm_sp=navigation-_-top_nav-_-deals&amp;lid=glbtopnav_deals-us&amp;cm_sp=intl_hdr-_-sale-_-deals_COL4">Deals</a> 
+                  </div>
+               </div>
+            </div>
+         </div> -->
+            
+            
+            
+            
+            
+            
+          <!-- <li class="nav-item dropdown">
             <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Products
             </a>
@@ -20,20 +639,11 @@
               <li *ngFor="let category of categories">
                 <a class="dropdown-item text-capitalize" [ngClass]="{'disabled': !nav.visible}" href="#" routerLink="/products" (click)="onCategorySelect(category.category)">{{category.category}}</a>
               </li>
-              <!-- <li><a class="dropdown-item" href="#" routerLinkActive="active" #allProducts="routerLinkActive" routerLink="/products">All Products</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><h6 class="dropdown-header men-header">Clothing</h6></li>
-              <li><a class="dropdown-item" href="#" routerLink="/products">Men's</a></li>
-              <li><a class="dropdown-item" href="#" routerLink="/products">Women's</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><h6 class="dropdown-header women-header">Accessories</h6></li>
-              <li><a class="dropdown-item" href="#" routerLink="/products">Jewelery</a></li>
-              <li><a class="dropdown-item" href="#" routerLink="/products">Electronics</a></li> -->
             </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLinkActive="active" href="#" routerLink="/about">About</a>
-          </li>
+          </li> -->
         </ul>
         <!-- <form #searchForm="ngForm" class="d-flex" (ngSubmit)="onSearch(searchForm)">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" ngModel name="keyword" [disabled]="nav.visible == true">

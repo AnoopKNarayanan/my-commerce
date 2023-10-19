@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product } from '../models/product';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
+import { Categories } from '../models/categories';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,14 @@ export class ProductService {
    * @param url API URL
    */
   getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>('https://fakestoreapi.com/products');
+    return this.http.get<Product[]>('https://fakestoreapi.com/products').pipe(
+      map(res => {
+        res.forEach(product => {
+          product.rating.starWidth = (product.rating.rate * 100) / 5;
+        })
+        return res;
+      })
+    );
   }
 
   getAllCategories(): Observable<Array<String>> {
@@ -24,6 +32,10 @@ export class ProductService {
 
   getByCategory(category: String): Observable<Product[]> {
     return this.http.get<Product[]>('https://fakestoreapi.com/products/category/' + category);
+  }
+
+  getCategories(): Observable<any> {
+    return this.http.get<any>('https://api.npoint.io/7129c7e45f027eb91bc4');
   }
 
 }

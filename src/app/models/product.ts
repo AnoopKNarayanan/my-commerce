@@ -11,6 +11,7 @@ export class Product {
 class Rating {
     rate: number = 0;
     count: number = 0;
+    starWidth: number = 0;
 }
 
 export class Category {

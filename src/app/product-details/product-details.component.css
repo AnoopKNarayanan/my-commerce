@@ -46,3 +46,116 @@
     background-color: #24AACC;
     border-color: rgb(33, 158, 188);
 }
+
+.product-cat {
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0;
+}
+
+.product-cat:hover {
+    text-decoration: underline;
+}
+
+.product-title {
+    font-size: clamp(24px,3vw,25px);
+    line-height: clamp(31px,4vw,30px);
+    text-transform: none;
+    font-family: Macys Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+    color: #000;
+    margin: 0;
+    letter-spacing: -.01em;
+    font-weight: 700;
+}
+
+.empty-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.empty-stars::before {
+    content: "";
+    width: 4.375rem;
+    height: 0.875rem;
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUuOCA2SDZ2LS4ybDEtMyAxIDN2LjNoMy4zTDguOCA4bC0uMi4xLjEuMiAxIDMtMi41LTEuOC0uMi0uMS0uMi4xLTIuNCAxLjkgMS0zVjhoLS4yTDIuNyA2aDN6IiBzdHJva2U9IiMwMDAiIHN0cm9rZS13aWR0aD0iLjciLz48L3N2Zz4=);
+    background-repeat: repeat-x;
+    background-size: 0.875rem 0.875rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.filled-stars {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.filled-stars::before {
+    content: "";
+    width: 100%;
+    height: 0.875rem;
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUuOCA1LjhoLTRMNSA4LjJsLTEuMiA0TDcgOS44bDMuMiAyLjQtMS4yLTQgMy4zLTIuNGgtNEw3IDEuOGwtMS4yIDR6IiBmaWxsPSIjMDAwIi8+PC9zdmc+);
+    background-repeat: repeat-x;
+    background-size: 0.875rem 0.875rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.stars-container {
+    display: inline-block;
+    position: relative;
+    width: 4.375rem;
+    vertical-align: text-bottom;
+    overflow: hidden;
+    line-height: 1.25rem;
+}
+
+.ratingCount {
+    font-size: 0.875rem;
+} 
+
+.eyebrow {
+    line-height: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #000;
+    letter-spacing: 0;
+}
+
+.product-price {
+    color: #e01a2b;
+    font-size: 1.125rem;
+    line-height: 1.375rem;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 500;
+    padding-left: 0;
+}
+
+.product-mrp {
+    font-size: 1.125rem;
+    line-height: 1.375rem;
+    letter-spacing: 0;
+    font-weight: 500;
+    color: #000;
+}
+
+.details-link a {
+    text-decoration: none;
+    border-bottom: 1px solid;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: inherit;
+    font-size: .75rem;
+    line-height: 1.125rem;
+}
+
+.details-link a:hover {
+    border-bottom: 2px solid;
+    opacity: 1;
+}

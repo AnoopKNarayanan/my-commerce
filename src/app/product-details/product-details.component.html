@@ -8,17 +8,35 @@
 				<div class="card-body">
 					<div class="table">
 						<div class="row">
-							<div class="col fw-bolder fs-2">{{productDetails.title}}</div>
+							<a href="#" class="col text-uppercase product-cat mb-2">{{productDetails.category}}</a>
+						</div>
+						<div class="row">
+							<div class="col product-title mb-3">{{productDetails.title}}</div>
 						</div>
                         <div class="row">
-                            <div class="col"><div class="rating-card mt-3">{{productDetails.rating.rate}} <span class="fa-sharp fa-solid fa-star"></span> <span class="border-start border-secondary ms-2 ps-3">{{productDetails.rating.count}} Ratings</span></div></div>
+							<span class="stars">
+								<span class="stars-container">
+									<span class="empty-stars"></span>
+									<span class="filled-stars" [style.width.%]="productDetails.rating.starWidth"></span>
+								</span>
+								<span class="ratingCount ms-1">{{productDetails.rating.rate}} ({{productDetails.rating.count}})</span>
+							</span>								
                         </div>
-						<hr class="hr hr-blurry">
-						<div class="row">
-							<div class="col fs-5"><span class="fw-bolder">CAD {{productDetails.price}}</span><span class="text-secondary">MRP <del>{{productDetails.price * 2}}</del></span> <span class="fw-bold off-color">(50% OFF)</span></div>
+						<div class="row mt-4">
+							<span class="eyebrow">LIMITED-TIME SPECIAL</span>
+						</div>
+						<div class="row mt-2">
+							<span>
+								<span class="product-price">CAD {{productDetails.price}}</span>
+								<span class="product-mrp"><del>CAD {{productDetails.price * 2}}</del></span> 
+								<span class="details-link"><a href="#">Details</a></span>
+							</span>							
 						</div>
 						<div class="row">
-							<div class="col"><button class="btn btn-lg text-uppercase cart-btn mt-5"><span class="fa-solid fa-cart-arrow-down me-3" style="color: #FFFFFF"></span>Add to cart</button></div>
+							<span class="details-link mt-2"><a href="#" class="p-0">CAD {{productDetails.price / 2}} Bonus Buy + More</a></span>
+						</div>
+						<div class="row">
+							<div class="col"><button class="btn btn-lg text-capitalize cart-btn mt-5">Add to Bag</button></div>
 						</div>
 						<hr class="hr hr-blurry my-5">
 						<div class="row">

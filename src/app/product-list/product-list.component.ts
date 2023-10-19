@@ -18,9 +18,9 @@ export class ProductListComponent implements OnInit {
 
   productList$!: Observable<Product[]>;
   categories: Array<Category> = new Array();
-  collapseCat: Boolean = false;
-  collapsePrice: Boolean = false;
-  collapseRating: Boolean = false;
+  collapseCat: Boolean = true;
+  collapsePrice: Boolean = true;
+  collapseRating: Boolean = true;
   priceRanges: Array<Range> = new Array();
   ratings: Array<Range> = new Array();
   selRating: number = 1;
@@ -51,27 +51,12 @@ export class ProductListComponent implements OnInit {
     this.store.dispatch(ProductActions.loadProducts());
     this.productList$ = this.store.pipe(select(ProductSelector.selectProducts()));
     this.route.queryParams.subscribe((params: any) => {
-      if(params && (params.categories || params.priceRanges || params.selRating)){
-        this.reRoute = true;
-        if(params.categories)
-          this.categories = JSON.parse(params.categories);
-        if(params.priceRanges)
-          this.priceRanges= JSON.parse(params.priceRanges);
-        if(params.selRating)
-          this.selRating = JSON.parse(params.selRating);
+      if(params && params.category){
+        if(params.category)
+          this.selCategory = params.category;
+          //this.categories = JSON.parse(params.categories);
       }       
     });
-
-    if(!this.reRoute){
-      this.productService.getAllCategories().subscribe(res => {
-        res.forEach(category => {
-          this.categories.push({category: category, checked: true});
-        });
-      });
-    }
-    else {
-      this.onFilter();
-    }
   }
 
   onRatings(rating: number) {
@@ -122,7 +107,8 @@ export class ProductListComponent implements OnInit {
   }
 
   goToDetails(id: number) {
-    this.router.navigate(['/product/' + id], { queryParams: { categories: JSON.stringify(this.categories), priceRanges: JSON.stringify(this.priceRanges), selRating: JSON.stringify(this.selRating) } });
+    // this.router.navigate(['/product/' + id], { queryParams: { categories: JSON.stringify(this.categories), priceRanges: JSON.stringify(this.priceRanges), selRating: JSON.stringify(this.selRating) } });
+    this.router.navigate(['/product/' + id]);
   }
 
   onSearch(searchForm: any) {

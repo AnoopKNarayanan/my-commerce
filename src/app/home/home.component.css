@@ -1,9 +1,44 @@
-.carousel-caption p{
-  font-size: 1.2rem;
+.home-wrapper{
+  padding: 0 5rem;  
+  margin-bottom: 4rem;
 }
 
-.carousel-caption {
-  background-color: black;
-  opacity: 70%;
-  border-radius: 5px;
+.img-wrapper {
+  margin-bottom: 4rem;
+}
+
+.banner {
+  background-color: #F8F8F8;
+  font-size: 1.15rem;
+  font-weight: 600;
+  height: 5rem;
+  color: rgba(1, 1, 1, 0.8);
+}
+
+.main-offer {
+  font-weight: 400;
+  font-size: 1.25rem;
+}
+
+.sub-offer {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.sub-text {
+  font-size: 0.95rem;
+}
+
+.border-rt {
+  border-right: 1px solid rgba(1, 1, 1, 0.20);
+}
+
+.link {
+  font-size: 0.95rem;
+  color: inherit;
+}
+
+.fa-solid {
+  font-size: 1.25rem;
+  color: rgba(1, 1, 1, 0.8);
 }

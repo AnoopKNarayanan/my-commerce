@@ -24,16 +24,17 @@ export class ProductDetailsComponent implements OnInit {
   
   ngOnInit(): void {
     var productId = this.route.snapshot.params['id'];
-    this.route.queryParams.subscribe((params: any) => {
-      if(params && (params.categories || params.priceRanges || params.selRating)){
-        if(params.categories)
-          this.categories = JSON.parse(params.categories);
-        if(params.priceRanges)
-          this.priceRanges= JSON.parse(params.priceRanges);
-        if(params.selRating)
-          this.selRating = JSON.parse(params.selRating);
-      }        
-    });
+    // this.route.queryParams.subscribe((params: any) => {
+    //   if(params && (params.categories || params.priceRanges || params.selRating)){
+    //     if(params.categories)
+    //       this.categories = JSON.parse(params.categories);
+    //     if(params.priceRanges)
+    //       this.priceRanges= JSON.parse(params.priceRanges);
+    //     if(params.selRating)
+    //       this.selRating = JSON.parse(params.selRating);
+    //   }        
+    // });
+    this.store.dispatch(ProductActions.loadProducts());
     this.productDetails$ = this.store.pipe(select(ProductSelector.selectProductById(productId)));
     this.store.dispatch(ProductActions.loadProductDetails({id: productId}));
   }

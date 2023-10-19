@@ -1,4 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    overflow-x: hidden;
+    letter-spacing: 0;
+    text-transform: none;
+    color: #000;
+    font-weight: 400;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-family: Macys Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }
@@ -23,8 +39,12 @@
     background-color: rgb(251, 133, 0);
 }
 
-.fa-star {
-    color: rgb(33, 158, 188);
+.filled-star {
+    color: #000;
+}
+
+.empty-star {
+    
 }
 
 .spinner-border {

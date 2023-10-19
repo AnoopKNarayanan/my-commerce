@@ -1,3 +1,159 @@
+.navbar {
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.top-bar {
+    border-bottom: 1px solid #d6d6d6;
+    height: 50px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.top-bar .row {
+    padding: 0 5rem; 
+    margin: 0 !important;
+}
+
+.container-fluid {
+    padding: 0 5rem; 
+    flex-flow: column;
+    align-items: flex-start;
+}
+
+.navbar-brand {
+    font-size: 2.75rem;
+    font-weight: 300;
+}
+
+.nav-link {
+    padding-left: 0 !important;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #000;
+}
+
+.flyout-container {
+    position: absolute;
+    z-index: 1000;
+    left: 0;
+    right: 0;
+    padding: 0 5rem;
+    /* margin-left: -100%;
+    margin-right: -100%; */
+    top: 6.85rem;
+    background-color: #fff;
+    overflow-y: auto;
+    height: auto!important;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .1s ease-in-out 50ms;
+}
+
+/* .nav-item:hover ~ .flyout-container {
+    visibility: visible;
+    opacity: 9;
+} */
+
+.flyout-container-visible {
+    visibility: visible;
+    opacity: 9;
+}
+
+.flyout-container:hover {
+    visibility: visible;
+    opacity: 9;
+}
+
+.flyout-container h5 {
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: uppercase;
+    font-family: Macys Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+    color: #000;
+    font-weight: 700;
+    letter-spacing: -.01em;
+}
+
+.flyout-container a {
+    font-size: 12px;
+    line-height: 1.5rem;
+    color: #2c2c37;
+    text-decoration: none;
+}
+
+.flyout-container a:hover {
+    text-decoration: underline;
+}
+
+.special {
+    color: #e01a2b !important;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.no-visibility {
+    visibility: hidden;
+}
+
+#navbarSupportedContent {
+    width: 100%;
+}
+
+.navbar-nav {
+    width: inherit;
+}
+
+.nav-top-row {
+    width: 100%;
+}
+
+.form-control {
+    width: 100%;
+    height: 40px;
+    border-radius: 67px;
+    background-color: rgba(0,0,0,.05);
+    padding: 10px 40px;
+    border: none;
+    font-size: 14px;
+    line-height: 20px;
+    font-family: Macys Sans,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.fa-magnifying-glass {
+    position: absolute;
+    padding-left: 10px;
+    font-size: 1.2rem;
+}
+
+.fa-bag-shopping {
+    font-size: 1.75rem;
+}
+
+.details-link {
+    color: inherit;
+}
+
+.top-bar-nav a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.border-rt {
+    border-right: 1px solid silver;
+}
+
+.top-bar-nav a:hover {
+    border-bottom: 2px solid #000;
+    padding-bottom: 0.25rem;
+}
+
 .dropdown-divider {
     margin: 0.7rem;
 }
